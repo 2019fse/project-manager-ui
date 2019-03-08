@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import { NavLink, Route } from 'react-router-dom';
+import AddProjectPage from './components/project/AddProjectPage';
+import AddTaskPage from './components/task/AddTaskPage';
+import ViewTaskPage from './components/task/VewTaskPage';
+import UserPage from './components/user/UserPage';
+import NavButton from './components/common/NavButton';
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="container">
+          <nav className="navbar navbar-light navbar-expand-sm">
+          <ul className="nav navbar-nav">
+            <li className="nav-item"><NavLink to="/adduser"><NavButton>Add User</NavButton></NavLink></li>
+            <li className="nav-item"><NavLink to="/addproject"><NavButton>Add Project</NavButton></NavLink></li>
+            <li className="nav-item"><NavLink to="/addtask"><NavButton>Add Task</NavButton></NavLink></li>
+            <li className="nav-item"><NavLink to="/viewtask"><NavButton>View Task</NavButton></NavLink></li>
+          </ul>
+         </nav>
+        <Route path="/" exact={true} component={UserPage}/>
+        <Route path="/adduser" component={UserPage}/>
+        <Route path="/addproject" component={AddProjectPage}/>
+        <Route path="/addtask" component={AddTaskPage}/>
+        <Route path="/viewtask" component={ViewTaskPage}/>
       </div>
     );
   }

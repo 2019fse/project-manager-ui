@@ -12,3 +12,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.navbar-nav > .nav-item{
+  margin-left: 25px;
+  margin-right: 25px;
+}
