@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { SERVER_URL } from '../common/Config';
+import {NotificationManager} from 'react-notifications';
+import { USER_SERVICE_URL } from '../common/Config';
 class AddUserPage extends Component {
   constructor(props) {
     super(props);
@@ -16,9 +17,9 @@ class AddUserPage extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    axios.post(SERVER_URL + 'user', this.state)
+    axios.post(USER_SERVICE_URL, this.state)
       .then(res => {
-        console.log(res.data);
+        NotificationManager.success(`User ${this.state.employeeId} added sucessfully`);
         this.setState({
           firstName: '',
           lastName: '',
@@ -29,10 +30,9 @@ class AddUserPage extends Component {
   }
 
   render() {
-    console.log("AddUserPage Render Called");
     return (
       <div style={{ marginTop: 10 }} className="container">
-        <h3>AddUserPage</h3>
+        <h3>Add User</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label>First Name:  </label>
@@ -42,7 +42,7 @@ class AddUserPage extends Component {
               className="form-control"
               value={this.state.firstName}
               onChange={this.onChange}
-              required="true"
+              required
             />
           </div>
           <div className="form-group">
@@ -52,7 +52,7 @@ class AddUserPage extends Component {
               className="form-control"
               value={this.state.lastName}
               onChange={this.onChange}
-              required="true"
+              required
             />
           </div>
           <div className="form-group">
@@ -62,7 +62,7 @@ class AddUserPage extends Component {
               className="form-control"
               value={this.state.employeeId}
               onChange={this.onChange}
-              required="true"
+              required
             />
           </div>
           <div className="form-group">

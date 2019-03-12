@@ -5,18 +5,14 @@ import DatePicker from "react-datepicker";
 import Select from 'react-select';
 import {NotificationManager} from 'react-notifications';
 import { USER_SERVICE_URL, PROJECT_SERVICE_URL } from '../common/Config';
-class AddProjectPage extends Component {
+class EditProjectPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      projectName: '',
-      startDate: null,
-      endDate: null,
-      priority: 0,
-      managerId: null,
-      datePickerDisabled: true,
-      selectedUser: null,
-      userList:[]
+        ...props.selectedRow,
+        datePickerDisabled: props.selectedRow.startDate == null,
+        selectedUser: null,
+        userList:[]
     }
   }
   onChange = (e) => {
@@ -57,9 +53,9 @@ class AddProjectPage extends Component {
         return;
       }
     } 
-    axios.post(PROJECT_SERVICE_URL, request)
+    axios.put(PROJECT_SERVICE_URL, request)
       .then(res => {
-        NotificationManager.success(`Project ${this.state.projectName} added sucessfully`);
+        NotificationManager.success(`Project ${this.state.projectName} updated sucessfully`);
         this.setState({
           projectName: '',
           startDate: null,
@@ -79,17 +75,25 @@ class AddProjectPage extends Component {
       axios.get(USER_SERVICE_URL)
           .then(response => {
               const userList = response.data.map(u => Object.assign({}, { value: u.id, label: `${u.firstName} ${u.lastName}` }));
-              this.setState({ userList, selectedUser: null, managerId: null });
+              this.setState({ userList, selectedUser: userList.find(user => user.value === this.state.managerId), managerId: this.state.managerId });
           })
           .catch(function (error) {
-            NotificationManager.error(`Error in getting user list`);
+            NotificationManager.error(`Error in loading user list`);
           })
   }
+  componentDidUpdate(prevProps) {
+    if (this.props.selectedRow.projectId !== prevProps.selectedRow.projectId) {
+      this.setState({
+        ...this.props.selectedRow,
+        datePickerDisabled: this.props.selectedRow.startDate == null
+      });
+    }
+  }  
   render() {
     console.log("AddProjectPage Render Called");
     return (
       <div style={{ marginTop: 10 }} className="container">
-        <h3>Add Project</h3>
+        <h3>Edit Project</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label>Project:  </label>
@@ -152,11 +156,12 @@ class AddProjectPage extends Component {
             />
           </div>
           <div className="form-group">
-            <button value="Add" className="btn btn-primary m-2">Submit</button>
+            <button className="btn btn-primary m-2">Update</button>
+            <button className="btn btn-danger m-2" onClick={(e) => {e.preventDefault(); this.props.setShowEdit(false);}}>Cancel</button>
           </div>
         </form>
       </div>
     );
   }
 }
-export default AddProjectPage;
+export default EditProjectPage;

@@ -4,6 +4,9 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import "react-datepicker/dist/react-datepicker.css";
+import "react-input-range/lib/css/index.css";
+import 'react-notifications/lib/notifications.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 

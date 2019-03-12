@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { NavLink, Route } from 'react-router-dom';
-import AddProjectPage from './components/project/AddProjectPage';
+import ProjectPage from './components/project/ProjectPage';
 import AddTaskPage from './components/task/AddTaskPage';
 import ViewTaskPage from './components/task/VewTaskPage';
 import UserPage from './components/user/UserPage';
 import NavButton from './components/common/NavButton';
+import {NotificationContainer} from 'react-notifications';
 class App extends Component {
   render() {
     return (
@@ -19,9 +20,10 @@ class App extends Component {
          </nav>
         <Route path="/" exact={true} component={UserPage}/>
         <Route path="/adduser" component={UserPage}/>
-        <Route path="/addproject" component={AddProjectPage}/>
+        <Route path="/addproject" component={ProjectPage}/>
         <Route path="/addtask" component={AddTaskPage}/>
         <Route path="/viewtask" component={ViewTaskPage}/>
+        <NotificationContainer/>
       </div>
     );
   }

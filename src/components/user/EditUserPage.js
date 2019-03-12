@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { SERVER_URL } from '../common/Config';
+import {NotificationManager} from 'react-notifications';
+import { USER_SERVICE_URL } from '../common/Config';
 class EditUserPage extends Component {
   constructor(props) {
     super(props);
@@ -14,9 +15,9 @@ class EditUserPage extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    axios.put(SERVER_URL + 'user', this.state)
+    axios.put(USER_SERVICE_URL, this.state)
       .then(res => {
-        console.log(res.data);
+        NotificationManager.success(`User ${this.state.employeeId} updated sucessfully`);        
         this.setState({
           firstName: '',
           lastName: '',
@@ -36,7 +37,7 @@ class EditUserPage extends Component {
   render() {
     return (
       <div style={{ marginTop: 10 }} className="container">
-        <h3>EditUserPage</h3>
+        <h3>Edit User</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label>First Name:  </label>
@@ -46,7 +47,7 @@ class EditUserPage extends Component {
               className="form-control"
               value={this.state.firstName}
               onChange={this.onChange}
-              required="true"
+              required
             />
           </div>
           <div className="form-group">
@@ -56,7 +57,7 @@ class EditUserPage extends Component {
               className="form-control"
               value={this.state.lastName}
               onChange={this.onChange}
-              required="true"
+              required
             />
           </div>
           <div className="form-group">
@@ -66,7 +67,7 @@ class EditUserPage extends Component {
               className="form-control"
               value={this.state.employeeId}
               onChange={this.onChange}
-              required="true"
+              required
             />
           </div>
           <div className="form-group">

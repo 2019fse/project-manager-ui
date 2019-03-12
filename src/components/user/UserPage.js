@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import AddUserPage from './AddUserPage';
 import EditUserPage from './EditUserPage';
 import UserList from './UserList';
-import { SERVER_URL } from '../common/Config';
+import {NotificationManager} from 'react-notifications';
+import { USER_SERVICE_URL } from '../common/Config';
 import axios from 'axios';
 class UserPage extends Component {
     constructor(props) {
@@ -23,13 +24,13 @@ class UserPage extends Component {
     }
 
     deleteRow = (id) => {
-        axios.delete(SERVER_URL + 'user/' + id)
+        axios.delete(`${USER_SERVICE_URL}${id}`)
             .then(response => {
-                console.log(response);
-                this.getLatestRows()
+                this.getLatestRows();
+                NotificationManager.success(`User ${id} deleted sucessfully`);   
             })
             .catch(function (error) {
-                console.log(error);
+                NotificationManager.error(`Error in deleting user`);
             })
     }
 
@@ -37,12 +38,12 @@ class UserPage extends Component {
         this.getLatestRows();
     }
     getLatestRows() {
-        axios.get(SERVER_URL + 'user')
+        axios.get(USER_SERVICE_URL)
             .then(response => {
                 this.setState({ rows: response.data });
             })
             .catch(function (error) {
-                console.log(error);
+                NotificationManager.error(`Error in loading user details`);
             })
     }
     render() {

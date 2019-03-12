@@ -1,31 +1,48 @@
 import React, {Component} from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
-class UserList extends Component {
+class ProjectList extends Component {
     state = {
         columns: [{
-            dataField: 'firstName',
-            text: 'First Name',
-            headerFormatter: this.buttonHeaderFormatter.bind(this),
-            sort: true
+            dataField: 'projectName',
+            text: 'Project Name',
         },
         {
-            dataField: 'lastName',
-            text: 'Last Name',
+            dataField: 'taskTotalCount',
+            text: 'No of Tasks',
+        }, 
+        {
+            dataField: 'taskCompletedCount',
+            text: 'Completed',
             headerFormatter: this.buttonHeaderFormatter.bind(this),
             sort: true
-        }, {
-            dataField: 'employeeId',
-            text: 'Employee Id',
+        }, 
+        {
+            dataField: 'startDate',
+            text: 'Start Date',
             headerFormatter: this.buttonHeaderFormatter.bind(this),
             sort: true
-        }, {
-            dataField: 'id',
+        }, 
+        {
+            dataField: 'endDate',
+            text: 'End Date',
+            headerFormatter: this.buttonHeaderFormatter.bind(this),
+            sort: true
+        }, 
+        {
+            dataField: 'priority',
+            text: 'Priority',
+            headerFormatter: this.buttonHeaderFormatter.bind(this),            
+            sort: true
+        },    
+        {
+            dataField: 'projectId',
+            hidden: true
+        },                     
+        {
+            dataField: 'projectId',
             text: 'Action',
             formatter: this.actionFormatter.bind(this)
-        }, {
-            dataField: 'id',
-            hidden: true
         }]
     }
     buttonHeaderFormatter(column, colIndex) {
@@ -37,7 +54,7 @@ class UserList extends Component {
         return (
             <div className="column">
                 <button className="btn btn-primary m-1" onClick={() => this.props.setShowEdit(true, row)}>Edit</button>
-                <button className="btn btn-danger m-1" onClick={() => this.props.deleteRow(cell)}>Delete</button>
+                <button className="btn btn-danger m-1" onClick={() => this.props.deleteRow(cell)}>Suspend</button>
             </div>
         );
     }
@@ -46,7 +63,7 @@ class UserList extends Component {
         return (
             <div className="container">
                 <ToolkitProvider
-                    keyField="id"
+                    keyField="projectId"
                     data={this.props.rows}
                     columns={this.state.columns}
                     search
@@ -54,7 +71,7 @@ class UserList extends Component {
                     {
                         props => (
                             <div>
-                                <h2>Search user:</h2>
+                                <h2>Search project:</h2>
                                 <SearchBar {...props.searchProps} />
                                 <ClearSearchButton {...props.searchProps} className="btn btn-danger m-2" />
 
@@ -74,4 +91,4 @@ class UserList extends Component {
         );
     }
 }
-export default UserList;
+export default ProjectList;
