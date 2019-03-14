@@ -90,7 +90,6 @@ class EditProjectPage extends Component {
     }
   }  
   render() {
-    console.log("AddProjectPage Render Called");
     return (
       <div style={{ marginTop: 10 }} className="container">
         <h3>Edit Project</h3>

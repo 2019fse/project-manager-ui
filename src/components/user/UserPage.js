@@ -47,7 +47,6 @@ class UserPage extends Component {
             })
     }
     render() {
-        console.log('UserPage Render Called');
         return (
             <div>
                 {this.state.show_edit && <EditUserPage setShowEdit={this.setShowEdit} selectedRow={this.state.selected_row} />}

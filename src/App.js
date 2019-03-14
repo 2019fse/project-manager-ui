@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import ProjectPage from './components/project/ProjectPage';
 import AddTaskPage from './components/task/AddTaskPage';
-import ViewTaskPage from './components/task/VewTaskPage';
+import TaskList from './components/task/TaskList';
 import UserPage from './components/user/UserPage';
 import NavButton from './components/common/NavButton';
 import {NotificationContainer} from 'react-notifications';
@@ -22,7 +22,7 @@ class App extends Component {
         <Route path="/adduser" component={UserPage}/>
         <Route path="/addproject" component={ProjectPage}/>
         <Route path="/addtask" component={AddTaskPage}/>
-        <Route path="/viewtask" component={ViewTaskPage}/>
+        <Route path="/viewtask" component={TaskList}/>
         <NotificationContainer/>
       </div>
     );

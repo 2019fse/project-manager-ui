@@ -37,13 +37,12 @@ class ProjectPage extends Component {
     deleteRow = (id) => {
         axios.delete(`${PROJECT_SERVICE_URL}${id}`)
             .then(response => {
-                console.log(response);
                 NotificationManager.success(`Project ${id} suspended sucessfully`);
                 this.getLatestRows();
 
             })
             .catch(function (error) {
-                console.log(error);
+                NotificationManager.error(`Error in suspending project`);
             })
     }
 
@@ -56,11 +55,10 @@ class ProjectPage extends Component {
                 this.setState({ rows: response.data });
             })
             .catch(function (error) {
-                console.log(error);
+                NotificationManager.error(`Error in geting project list`);
             })
     }
     render() {
-        console.log('ProjectPage Render Called');
         return (
             <div>
                 {this.state.show_edit && <EditProjectPage setShowEdit={this.setShowEdit} selectedRow={this.state.selected_row} />}
